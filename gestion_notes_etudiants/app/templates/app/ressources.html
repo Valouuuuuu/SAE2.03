@@ -1,0 +1,34 @@
+{# templates/app/ressources.html #}
+{% extends 'app/base.html' %}
+{% block content %}
+<h2>Ressources</h2>
+<form method="post" class="mb-4">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Ajouter / Modifier</button>
+</form>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Description</th>
+            <th>UE</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for r in ressources %}
+        <tr>
+            <td>{{ r.nom }}</td>
+            <td>{{ r.description }}</td>
+            <td>{{ r.ue.nom }}</td>
+            <td>
+                <a href="{% url 'modifier_ressource' r.id_ressource %}" class="btn btn-sm btn-warning">Modifier</a>
+                <a href="{% url 'supprimer_ressource' r.id_ressource %}" class="btn btn-sm btn-danger">Supprimer</a>
+            </td>
+
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+  <h2>📥 Importer les notes via CSV</h2>
+  <p><strong>Format attendu :</strong> etudiant_id,etudiant_nom,etudiant_prenom,ue_code,ressource,examen_id,examen_titre,note,appreciation</p>
+
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Importer</button>
+  </form>
+
+  {% if messages %}
+    <ul>
+      {% for message in messages %}
+        <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endblock %}

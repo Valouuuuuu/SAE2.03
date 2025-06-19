@@ -1,0 +1,35 @@
+{# templates/app/examens.html #}
+{% extends 'app/base.html' %}
+{% block content %}
+<h2>Examens</h2>
+<form method="post" class="mb-4">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Ajouter / Modifier</button>
+</form>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Titre</th>
+            <th>Date</th>
+            <th>Coefficient</th>
+            <th>Ressource</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for e in examens %}
+        <tr>
+            <td>{{ e.nom }}</td>
+            <td>{{ e.date }}</td>
+            <td>{{ e.coefficient }}</td>
+            <td>{{ e.id_ressource.nom }}</td>
+            <td>
+                <a href="{% url 'modifier_examen' e.id_examen %}" class="btn btn-sm btn-warning">Modifier</a>
+                <a href="{% url 'supprimer_examen' e.id_examen %}" class="btn btn-sm btn-danger">Supprimer</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

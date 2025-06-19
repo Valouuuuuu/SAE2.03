@@ -1,0 +1,38 @@
+{# templates/app/etudiants.html #}
+{% extends 'app/base.html' %}
+{% block content %}
+<h2>Étudiants</h2>
+<form method="post" enctype="multipart/form-data" class="mb-4">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Ajouter / Modifier</button>
+</form>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Numéro</th>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Email</th>
+            <th>Groupe</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for e in etudiants %}
+        <tr>
+            <td>{{ e.id_etudiant }}</td>
+            <td>{{ e.nom }}</td>
+            <td>{{ e.prenom }}</td>
+            <td>{{ e.email }}</td>
+            <td>{{ e.groupe }}</td>
+            <td>
+                <a href="{% url 'modifier_etudiant' e.id_etudiant %}" class="btn btn-sm btn-warning">Modifier</a>
+                <a href="{% url 'supprimer_etudiant' e.id_etudiant %}" class="btn btn-sm btn-danger">Supprimer</a>
+            </td>
+
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

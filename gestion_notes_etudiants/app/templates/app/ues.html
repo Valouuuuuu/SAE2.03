@@ -1,0 +1,33 @@
+{# templates/app/ues.html #}
+{% extends 'app/base.html' %}
+{% block content %}
+<h2>Unité d'Enseignement (UE)</h2>
+<form method="post" class="mb-4">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Ajouter / Modifier</button>
+</form>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Semestre</th>
+            <th>Crédits</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for ue in ues %}
+        <tr>
+            <td>{{ ue.nom }}</td>
+            <td>{{ ue.semestre }}</td>
+            <td>{{ ue.credits }}</td>
+            <td>
+                <a href="{% url 'modifier_ue' ue.id_ue %}" class="btn btn-sm btn-warning">Modifier</a>
+                <a href="{% url 'supprimer_ue' ue.id_ue %}" class="btn btn-sm btn-danger">Supprimer</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'app/base.html' %}
+{% block content %}
+<h1>Relevé de notes pour {{ etudiant.prenom }} {{ etudiant.nom }}</h1>
+
+{% for item in ues_avec_moyennes %}
+    <h2>UE : {{ item.ue.nom }}</h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Ressource</th>
+                <th>Examen</th>
+                <th>Note</th>
+                <th>Coefficient</th>
+                <th>Appréciation</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for ligne in item.lignes %}
+            <tr>
+                <td>{{ ligne.ressource }}</td>
+                <td>{{ ligne.examen }}</td>
+                <td>{{ ligne.note }}</td>
+                <td>{{ ligne.coefficient }}</td>
+                <td>{{ ligne.appreciation }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <p><strong>Moyenne UE :</strong> {{ item.moyenne|floatformat:2 }}/20</p>
+    <hr>
+{% empty %}
+    <p>Aucune UE trouvée pour cet étudiant.</p>
+{% endfor %}
+
+<a href="{% url 'notes' %}">Retour</a>
+{% endblock %}

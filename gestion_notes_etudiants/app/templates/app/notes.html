@@ -1,0 +1,37 @@
+{# templates/app/notes.html #}
+{% extends 'app/base.html' %}
+{% block content %}
+<h2>Notes</h2>
+<form method="post" class="mb-4">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Ajouter / Modifier</button>
+</form>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Étudiant</th>
+            <th>Examen</th>
+            <th>Note</th>
+            <th>Appréciation</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for n in notes %}
+        <tr>
+            <td>{{ n.id_etudiant.prenom }} {{ n.id_etudiant.nom }}</td>
+            <td>{{ n.id_examen.nom }}</td>
+            <td>{{ n.note }}</td>
+            <td>{{ n.appreciation }}</td>
+            <td>
+                <a href="{% url 'modifier_note' n.id_note %}" class="btn btn-sm btn-warning">Modifier</a>
+                <a href="{% url 'supprimer_note' n.id_note %}" class="btn btn-sm btn-danger">Supprimer</a>
+                <a href="{% url 'releve_html' n.id_etudiant.id_etudiant %}" class="btn btn-sm btn-info">Voir le relevé</a>
+
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
